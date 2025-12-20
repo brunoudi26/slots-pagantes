@@ -1,0 +1,91 @@
+:root {
+    --primary: #00ff66;
+    --accent: #ff0055;
+    --gold: #ffcc00;
+    --verified: #1da1f2;
+    --dark: #0a0a0a;
+    --card-bg: #161616;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #000;
+    color: #fff;
+    display: flex; justify-content: center;
+}
+
+.app-container {
+    width: 100%; max-width: 480px;
+    background-color: var(--dark);
+    min-height: 100vh;
+}
+
+/* --- HEADER --- */
+.main-header { padding: 25px 20px; text-align: center; }
+.logo { font-size: 2.2rem; font-weight: 800; }
+.logo span { color: var(--primary); }
+
+.status-bar { 
+    font-size: 0.75rem; 
+    color: var(--primary); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    gap: 5px; 
+    font-weight: 600;
+}
+
+.dot { 
+    width: 8px; height: 8px; 
+    background-color: var(--primary); 
+    border-radius: 50%; 
+    box-shadow: 0 0 8px var(--primary);
+    animation: blink 1.5s infinite; /* Faz a luzinha brilhar */
+}
+
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* --- CARDS E BANNER --- */
+.promo-box { margin: 20px; padding: 20px; border: 2px dashed var(--primary); border-radius: 15px; text-align: center; }
+.promo-box h2 { font-size: 1.2rem; color: var(--gold); }
+.promo-box p { font-size: 0.8rem; color: #888; }
+
+.content-list { padding: 0 15px; display: flex; flex-direction: column; gap: 12px; }
+
+.card { background-color: var(--card-bg); border-radius: 16px; position: relative; border: 1px solid #222; }
+.card.premium { border: 1px solid var(--primary); }
+.card-badge { position: absolute; top: -10px; left: 15px; background: var(--primary); color: #000; padding: 2px 10px; border-radius: 5px; font-size: 0.65rem; font-weight: 800; }
+
+.card-body { padding: 20px 15px; display: flex; align-items: center; gap: 12px; }
+
+.brand-logo-container { width: 60px; height: 60px; background-color: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; border: 1px solid #333; }
+.brand-img { width: 100%; height: 100%; object-fit: cover; }
+
+.brand-info { flex-grow: 1; }
+.name-row { display: flex; align-items: center; gap: 6px; }
+.brand-info h3 { font-size: 1rem; margin: 0; }
+.verified-icon { background-color: var(--verified); color: white; font-size: 0.6rem; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+.brand-info p { font-size: 0.75rem; color: #888; margin-top: 2px; }
+.bonus-tag { font-size: 0.65rem; color: var(--gold); background: rgba(255, 204, 0, 0.1); padding: 2px 6px; border-radius: 4px; display: inline-block; margin-top: 4px; font-weight: 600; }
+
+/* BOTÃO */
+.btn-play { background: var(--primary); color: #000; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-weight: 800; font-size: 0.8rem; }
+.pulse { animation: shadow-pulse 1.5s infinite; }
+@keyframes shadow-pulse { 0% { box-shadow: 0 0 0 0px rgba(0, 255, 102, 0.6); } 100% { box-shadow: 0 0 0 12px rgba(0, 255, 102, 0); } }
+
+/* GANHOS */
+.social-proof { padding: 20px; }
+.live-wins-container h4 { font-size: 0.8rem; color: var(--gold); text-align: center; margin-bottom: 10px; }
+.win-item { display: flex; justify-content: space-between; background: #1a1a1a; padding: 12px; border-radius: 8px; margin-bottom: 5px; font-size: 0.75rem; border-left: 3px solid var(--primary); }
+.win-amount { color: var(--primary); font-weight: 800; }
+.fade-in { animation: fadeIn 0.5s ease-in; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; } }
+
+.footer { text-align: center; padding: 30px; font-size: 0.7rem; color: #444; }
+.age-limit { border: 1px solid #444; padding: 2px 5px; display: inline-block; margin-top: 5px; }

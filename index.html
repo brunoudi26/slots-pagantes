@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackpot Arena | Melhores Slots 2025</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <header class="main-header">
+            <div class="logo">JACKPOT<span>ARENA</span></div>
+            <div class="status-bar">
+                <span class="dot"></span> 
+                <span id="user-online">26</span> usuários online agora
+            </div>
+        </header>
+
+        <section class="banner-area">
+            <div class="promo-box">
+                <h2>BÔNUS EXCLUSIVOS</h2>
+                <p>Links atualizados: <span id="current-date"></span></p>
+            </div>
+        </section>
+
+        <main class="content-list">
+            
+            <div class="card premium">
+                <div class="card-badge">MAIS PAGANDO</div>
+                <div class="card-body">
+                    <div class="brand-logo-container">
+                        <img src="imagens/hhwin-logo.jpg" alt="Logo" class="brand-img">
+                    </div>
+                    <div class="brand-info">
+                        <div class="name-row">
+                            <h3>hhwin.com</h3>
+                            <span class="verified-icon">✓</span>
+                        </div>
+                        <p>Depósito mín. R$ 1,00</p>
+                        <span class="bonus-tag">🔥 100% BÔNUS</span>
+                    </div>
+                    <div class="action-area">
+                        <a href="https://hhwin.fun/?id=455105237" target="_blank" class="btn-play pulse">JOGAR</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="brand-logo-container">
+                        <img src="imagens/357games-logo.jpg" alt="Logo" class="brand-img">
+                    </div>
+                    <div class="brand-info">
+                        <div class="name-row">
+                            <h3>357jade.com</h3>
+                            <span class="verified-icon">✓</span>
+                        </div>
+                        <p>Até R$ 88.888 em prêmios</p>
+                    </div>
+                    <div class="action-area">
+                        <a href="https://357jade.com/?code=3669634" target="_blank" class="btn-play">JOGAR</a>
+                    </div>
+                </div>
+            </div>
+
+                        <div class="card">
+                <div class="card-body">
+                    <div class="brand-logo-container">
+                        <img src="imagens/v2-logo.jpg" alt="Logo" class="brand-img">
+                    </div>
+                    <div class="brand-info">
+                        <div class="name-row">
+                            <h3>v2game.vip</h3>
+                            <span class="verified-icon">✓</span>
+                        </div>
+                        <p>Até R$ 88.888 em prêmios</p>
+                    </div>
+                    <div class="action-area">
+                        <a href="https://v2game.vip/?code=afJJJXXJ" target="_blank" class="btn-play">JOGAR</a>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <section class="social-proof">
+            <div class="live-wins-container">
+                <h4>🎉 Ganhos em Tempo Real</h4>
+                <div id="live-wins-list"></div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2025 Jackpot Arena. Apostar envolve risco.</p>
+            <div class="age-limit">18+</div>
+        </footer>
+    </div>
+
+    <script>
+        // 1. SCRIPT USUÁRIOS ONLINE (MUDANDO SOZINHO)
+        function updateOnlineUsers() {
+            const userElement = document.getElementById('user-online');
+            let currentUsers = parseInt(userElement.innerText);
+            
+            // Gera um número entre -3 e +5 para a variação
+            const change = Math.floor(Math.random() * 9) - 3; 
+            let newUsers = currentUsers + change;
+
+            // Mantém o número entre 120 e 250 para não ficar surreal
+            if (newUsers < 120) newUsers = 125;
+            if (newUsers > 250) newUsers = 245;
+
+            userElement.innerText = newUsers;
+        }
+        // Atualiza a cada 3 segundos
+        setInterval(updateOnlineUsers, 3000);
+
+        // 2. SCRIPT DE GANHOS DINÂMICOS
+        const nomes = ['lucas***', 'ana_v***', 'pedro_s***', 'mari_bet', 'thiago_x', 'gui_01', 'clara_bt', 'felipe_w', 'jonas_v12', 'beatriz_sl', 'vitor_bet', 'aline_poker', 'mestre_tigre', 'duda_slots', 'rafa_pix', 'caio_win', 'gabriel_777', 'sara_lucky'];
+        const plataformas = ['hhwin.com', 'v2game.vip', '357jade.com', '888bet.com'];
+        
+        function gerarGanho() {
+            const lista = document.getElementById('live-wins-list');
+            if(!lista) return;
+            const nome = nomes[Math.floor(Math.random() * nomes.length)];
+            const plataforma = plataformas[Math.floor(Math.random() * plataformas.length)];
+            const valor = (Math.random() * (2500 - 50) + 50).toFixed(2);
+            const itemHtml = `<div class="win-item fade-in"><span>${nome}</span><span>${plataforma}</span><span class="win-amount">R$ ${valor.replace('.', ',')}</span></div>`;
+            if (lista.children.length >= 3) lista.removeChild(lista.lastElementChild);
+            lista.insertAdjacentHTML('afterbegin', itemHtml);
+        }
+        setInterval(gerarGanho, 4500);
+        gerarGanho();
+
+        // 3. DATA ATUAL
+        document.getElementById("current-date").innerHTML = new Date().toLocaleDateString('pt-BR');
+    </script>
+</body>
+</html>
