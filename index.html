@@ -1,62 +1,482 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jackpot Arena – Escolha sua Plataforma</title>
-<meta name="description" content="Escolha a melhor plataforma de slots e jackpots. HHWIN recomendada.">
-<link rel="stylesheet" href="style.css">
+<title>Jackpot Arena</title>
+
+<style>
+
+/* RESET */
+* {margin:0;padding:0;box-sizing:border-box;font-family:-apple-system, Arial}
+body {background:#0d0d0d;color:#fff}
+
+/* CONTAINER */
+.container {max-width:420px;margin:auto;padding:20px}
+
+/* HEADER */
+.app {display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.app img {width:40px}
+
+/* CARROSSEL */
+.carousel {overflow:hidden;border-radius:30px;position:relative}
+
+.carousel-track {
+    display:flex;
+    transition:transform .7s ease;
+}
+
+.slide {min-width:100%;height:410px}
+
+.slide video,
+.slide img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* PROGRESS */
+.progress {
+    position:absolute;
+    top:0;
+    left:0;
+    height:3px;
+    width:0%;
+    background:linear-gradient(90deg,#ffcc00,#ff8800);
+}
+
+/* DOTS */
+.dots {
+    display:flex;
+    justify-content:center;
+    gap:6px;
+    margin-top:10px;
+}
+
+.dot {
+    width:8px;
+    height:8px;
+    background:#555;
+    border-radius:50%;
+}
+
+.dot.active {
+    background:#ffcc00;
+    transform:scale(1.3);
+}
+
+/* BOTÃO PRINCIPAL */
+.btn {
+    display:block;
+    background:linear-gradient(45deg,#ffcc00,#ffaa00);
+    color:#000;
+    padding:15px;
+    border-radius:12px;
+    font-weight:bold;
+    text-align:center;
+    text-decoration:none;
+    margin-top:15px;
+    transition:.3s;
+}
+
+/* ATIVO */
+.btn.active {
+    background:linear-gradient(45deg,#00aaff,#0066ff);
+    color:#fff;
+    animation:pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {transform:scale(1)}
+    50% {transform:scale(1.06)}
+    100% {transform:scale(1)}
+}
+
+/* FINAL BTN */
+.final-btn {
+    display:none;
+    margin-top:15px;
+    background:#008cff;
+    color:#fff;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+/* TIMER */
+.timer {
+    display:none;
+    margin-top:10px;
+    font-size:14px;
+    color:#ffcc00;
+}
+
+/* QUIZ */
+.quiz {
+    margin-top:20px;
+    background:#111;
+    padding:15px;
+    border-radius:15px;
+}
+
+.quiz button {
+    width:100%;
+    margin-top:10px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#222;
+    color:#fff;
+}
+
+/* ONLINE */
+.live {
+    margin-top:10px;
+    font-size:14px;
+    color:#00ff88;
+}
+
+/* TOAST ORIGINAL */
+.toast {
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%) translateY(20px);
+    background:#111;
+    padding:10px;
+    border-radius:10px;
+    opacity:0;
+    transition:.4s;
+}
+
+.toast.show {
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* ===== NOVO SISTEMA ===== */
+
+/* CONTAINER TOAST STACK */
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.toast2 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #111;
+    color: #fff;
+    padding: 10px;
+    border-radius: 14px;
+    min-width: 220px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+
+    opacity: 0;
+    transform: translateX(40px);
+    transition: .4s;
+}
+
+.toast2.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast2 img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}
+
+/* FX */
+#fxLayer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: gold;
+    animation: fall 1s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(300px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ENERGY */
+.energy {
+    height: 6px;
+    width: 0%;
+    background: linear-gradient(90deg,#00ff88,#00ccff);
+    border-radius: 10px;
+    margin-bottom:10px;
+    transition:.4s;
+}
+
+/* GLOW */
+.glow {
+    box-shadow: 0 0 25px rgba(255,204,0,0.7);
+}
+
+</style>
 </head>
+
 <body>
 
-<div class="urgency-bar">🚨 BÔNUS ATIVOS — APROVEITE AGORA</div>
+<div class="container">
 
-<header class="hero">
-  <h1>🎰 ESCOLHA SUA PLATAFORMA E JOGUE AGORA</h1>
-  <p>Plataformas confiáveis, bônus ativos e saques rápidos.</p>
-</header>
+<div class="energy" id="energy"></div>
 
-<main class="container">
-
-<section class="featured">
-<h2>🔥 RECOMENDADO PARA VOCÊ</h2>
-<div class="card highlight">
-<img src="imagens/hhwin-logo.jpg" class="logo featured-logo">
-<h3>HHWIN</h3>
-<p>Saque rápido • Plataforma estável</p>
-<a href="https://hhwin.fun/?id=455105237" class="cta pulse big">🎯 JOGAR AGORA</a>
+<!-- HEADER -->
+<div class="app">
+    <img src="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+    <div>
+        <strong>Jackpot Arena</strong><br>
+        <span style="color:#aaa;font-size:13px">4.8 ★ • +2.000 usuários</span>
+    </div>
 </div>
-</section>
 
-<section>
-<h2>⚡ ESCOLHA PELO SEU PERFIL</h2>
-<div class="grid">
+<!-- CARROSSEL -->
+<div class="carousel">
+    <div class="progress" id="progress"></div>
 
-<div class="card"><img src="imagens/e55.com-logo.jpg" class="logo"><h3>EE55</h3><p>Jackpots altos</p><a href="https://e55.group/?a=387j8c85" class="cta">JOGAR</a></div>
-<div class="card"><img src="imagens/357games-logo.jpg" class="logo"><h3>357 GAME</h3><p>Ideal para iniciantes</p><a href="https://357jade.com/?code=3669634" class="cta">ENTRAR</a></div>
-<div class="card"><img src="imagens/pv7-logo.jpg" class="logo"><h3>PV7</h3><p>Slots populares</p><a href="https://ivafvw.pv7.games?code=dXX3asf3" class="cta">JOGAR</a></div>
-<div class="card"><img src="imagens/v2-logo.jpg" class="logo"><h3>V2 GAME</h3><p>Bônus ativo</p><a href="https://v2game.vip/?code=afJJJXXJ" class="cta">ATIVAR</a></div>
-<div class="card"><img src="imagens/zv8-logo.jpeg" class="logo"><h3>SV8</h3><p>Boa variedade</p><a href="https://sv8.bet/?t=2&d=qVeDkwnCX4&u=LLWHXet0" class="cta">JOGAR</a></div>
-<div class="card"><img src="imagens/kv7-logo.jpeg" class="logo"><h3>KV7</h3><p>Pagamentos rápidos</p><a href="https://apk.kv7top.com/?code=dXRd7RRR" class="cta">ENTRAR</a></div>
+    <div class="carousel-track" id="track">
+        <div class="slide"><video autoplay muted loop playsinline><source src="videos/1.mp4"></video></div>
+        <div class="slide"><video autoplay muted loop playsinline><source src="videos/2.mp4"></video></div>
+        <div class="slide"><img src="imagens/imagens carroussel/2.jpeg"></div>
+        <div class="slide"><img src="imagens/imagens carroussel/3.jpeg"></div>
+        <div class="slide"><video autoplay muted loop playsinline><source src="videos/3.mp4"></video></div>
+        <div class="slide"><img src="imagens/imagens carroussel/4.jpeg"></div>
+        <div class="slide"><video autoplay muted loop playsinline><source src="videos/4.mp4"></video></div>
+        <div class="slide"><img src="imagens/imagens carroussel/5.jpeg"></div>
+        <div class="slide"><img src="imagens/imagens carroussel/6.jpeg"></div>
+    </div>
+</div>
+
+<div class="dots" id="dots"></div>
+
+<h1>Ganhe dinheiro direto do celular</h1>
+<p>Sem experiência • Saque via Pix</p>
+
+<div class="live" id="live">🔴 132 pessoas online agora</div>
+
+<a href="home.html" class="btn" id="cta">
+COMEÇAR AGORA
+</a>
+
+<!-- QUIZ -->
+<div class="quiz">
+    <strong>Você já tentou ganhar dinheiro online?</strong>
+    <button onclick="resposta()">Sim</button>
+    <button onclick="resposta()">Ainda não</button>
+</div>
+
+<!-- TIMER -->
+<div class="timer" id="timer">
+⏳ Liberando acesso em <span id="count">3</span>s...
+</div>
+
+<!-- FINAL -->
+<a href="https://jackpotarena.shop/" class="final-btn" id="finalBtn">
+CLIQUE AQUI PARA ACESSAR
+</a>
 
 </div>
-</section>
 
-<section>
-<h2>🎮 OUTRAS PLATAFORMAS</h2>
-<div class="grid">
+<div id="toastContainer"></div>
+<div id="fxLayer"></div>
+<div class="toast" id="toast"></div>
 
-<div class="card"><img src="imagens/qs88-logo.jpeg" class="logo"><h3>QS88</h3><a href="https://qs88.live/?a=zlasg0zp" class="cta">JOGAR</a></div>
-<div class="card"><img src="imagens/nk7-logo.jpeg" class="logo"><h3>NK7</h3><a href="https://apk.winnk7.com/?code=R33ffzJz" class="cta">ENTRAR</a></div>
-<div class="card"><img src="imagens/389win-logo.jpeg" class="logo"><h3>389WIN</h3><a href="https://389win5.com/?dl=fhd56r" class="cta">JOGAR</a></div>
-<div class="card"><img src="imagens/40win-logo.jpeg" class="logo"><h3>40WIN</h3><a href="https://40win25.com/?id=177654976" class="cta">ENTRAR</a></div>
+<script>
 
-</div>
-</section>
+/* ===== SEU CÓDIGO ORIGINAL (INTACTO) ===== */
 
-</main>
+/* CARROSSEL */
+let index=0;
+const tempo=7000;
 
-<footer>+18 | Jogue com responsabilidade<br>Jackpot Arena © 2025</footer>
+const track=document.getElementById("track");
+const slides=document.querySelectorAll(".slide");
+const dotsContainer=document.getElementById("dots");
+const progress=document.getElementById("progress");
+
+slides.forEach((_,i)=>{
+    let d=document.createElement("div");
+    d.classList.add("dot");
+    if(i===0) d.classList.add("active");
+    dotsContainer.appendChild(d);
+});
+const dots=document.querySelectorAll(".dot");
+
+function update(){
+    track.style.transform=`translateX(-${index*100}%)`;
+    dots.forEach(d=>d.classList.remove("active"));
+    dots[index].classList.add("active");
+
+    document.querySelectorAll("video").forEach(v=>v.pause());
+    let v=slides[index].querySelector("video");
+    if(v) v.play();
+
+    progress.style.transition="none";
+    progress.style.width="0%";
+
+    setTimeout(()=>{
+        progress.style.transition=`width ${tempo}ms linear`;
+        progress.style.width="100%";
+    },50);
+}
+
+setInterval(()=>{
+    index=(index+1)%slides.length;
+    update();
+},tempo);
+
+update();
+
+function resposta(){
+    const btn=document.getElementById("cta");
+    const finalBtn=document.getElementById("finalBtn");
+    const timer=document.getElementById("timer");
+    const count=document.getElementById("count");
+
+    btn.classList.add("active");
+
+    if(navigator.vibrate){
+        navigator.vibrate([100,50,100]);
+    }
+
+    timer.style.display="block";
+
+    let t=3;
+
+    const i=setInterval(()=>{
+        t--;
+        count.innerText=t;
+
+        if(t<=0){
+            clearInterval(i);
+            timer.style.display="none";
+            finalBtn.style.display="block";
+        }
+    },1000);
+}
+
+/* ONLINE */
+let viewers=132;
+setInterval(()=>{
+    viewers+=Math.floor(Math.random()*5-2);
+    if(viewers<90) viewers=100;
+    document.getElementById("live").innerText=`🔴 ${viewers} pessoas online agora`;
+},3000);
+
+/* TOAST ORIGINAL */
+const msgs=["Pagamento via Pix","Novo usuário entrou","Saque liberado"];
+function toast(){
+    let el=document.getElementById("toast");
+    el.innerText=msgs[Math.floor(Math.random()*msgs.length)];
+    el.classList.add("show");
+    setTimeout(()=>el.classList.remove("show"),3000);
+}
+setInterval(toast,4000);
+
+setInterval(()=>{
+    const b=document.getElementById("cta");
+    b.style.transform="scale(1.05)";
+    setTimeout(()=>b.style.transform="scale(1)",300);
+},5000);
+
+
+/* ===== NOVO SISTEMA INSANO ===== */
+
+const nomes=["João","Maria","Pedro","Lucas","Ana","Carlos","Fernanda"];
+const cidades=["SP","RJ","MG","BA","PR"];
+
+function valor(){
+    return (Math.random()*200+30).toFixed(2);
+}
+
+function novoToast(){
+    const container=document.getElementById("toastContainer");
+
+    const t=document.createElement("div");
+    t.className="toast2";
+
+    t.innerHTML=`
+    <img src="https://i.pravatar.cc/100?u=${Math.random()}">
+    <div>
+    <strong>${nomes[Math.floor(Math.random()*nomes.length)]}</strong>
+    (${cidades[Math.floor(Math.random()*cidades.length)]})<br>
+    sacou <span style="color:#00ff88">R$ ${valor()}</span>
+    </div>
+    `;
+
+    container.appendChild(t);
+
+    setTimeout(()=>t.classList.add("show"),100);
+
+    setTimeout(()=>{
+        t.remove();
+    },4000);
+
+    if(container.children.length>3){
+        container.removeChild(container.firstChild);
+    }
+}
+
+setInterval(novoToast,5000);
+
+/* CONFETTI */
+function confetti(){
+    const layer=document.getElementById("fxLayer");
+
+    for(let i=0;i<20;i++){
+        const el=document.createElement("div");
+        el.className="confetti";
+        el.style.left=Math.random()*100+"%";
+        layer.appendChild(el);
+
+        setTimeout(()=>el.remove(),1000);
+    }
+}
+
+/* ENERGY */
+let energia=0;
+function energiaUp(){
+    energia+=15;
+    if(energia>100) energia=100;
+    document.getElementById("energy").style.width=energia+"%";
+}
+
+/* INTERAÇÕES */
+document.getElementById("cta").addEventListener("click",()=>{
+    confetti();
+    energiaUp();
+});
+
+document.querySelectorAll(".quiz button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        confetti();
+        energiaUp();
+    });
+});
+
+</script>
 
 </body>
 </html>
